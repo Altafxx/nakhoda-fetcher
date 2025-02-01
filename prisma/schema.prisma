@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model TripUpdate {
+  id         String   @id @default(cuid())
+  tripID     String
+  trip       Trip     @relation(fields: [tripID], references: [id])
+  positionID String
+  position   Position @relation(fields: [positionID], references: [id])
+  vehicleID  String
+  vehicle    Vehicle  @relation(fields: [vehicleID], references: [id])
+  timestamp  String
+  createdAt  DateTime @default(now())
+}
+
+model Trip {
+  id          String       @id @default(cuid())
+  referenceID String
+  startDate   String?
+  startTime   String?
+  routeId     String?
+  directionId Int?
+  tripUpdates TripUpdate[]
+}
+
+model Position {
+  id          String       @id @default(cuid())
+  referenceID String
+  latitude    Float
+  longitude   Float
+  bearing     Int?
+  speed       Float?
+  TripUpdate  TripUpdate[]
+}
+
+model Vehicle {
+  id           String       @id @default(cuid())
+  reference    String // The original ID from the data (e.g., "WUY9570")
+  label        String? // The label of the vehicle (if available)
+  licensePlate String? // Added from the new data (e.g., "MUY9570")
+  TripUpdate   TripUpdate[]
+}
+
+model VehicleType {
+  id             String           @id @default(cuid())
+  name           String
+  VehicleDetails VehicleDetails[]
+}
+
+model VehicleDetails {
+  id            String      @id @default(cuid())
+  licensePlate  String?
+  vehicleID     String?
+  vehicleTypeID String
+  vehicleType   VehicleType @relation(fields: [vehicleTypeID], references: [id])
+}
