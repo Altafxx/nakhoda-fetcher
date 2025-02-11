@@ -1,0 +1,229 @@
+{
+    "header": {
+        "gtfsRealtimeVersion": "2.0",
+        "incrementality": "FULL_DATASET",
+        "timestamp": "1739093822"
+    },
+    "entity": [
+        {
+            "id": "0",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_K4020_K402001_6",
+                    "startTime": "17:03:27",
+                    "startDate": "20250209",
+                    "routeId": "K4020"
+                },
+                "position": {
+                    "latitude": 3.74684810638428,
+                    "longitude": 103.314453125,
+                    "bearing": 123.699996948242,
+                    "speed": 20.9300003051758
+                },
+                "timestamp": "1739093797",
+                "vehicle": {
+                    "id": "CDH8312",
+                    "licensePlate": "CDH8312"
+                }
+            }
+        },
+        {
+            "id": "1",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_K5000_K500002_7",
+                    "startTime": "17:30:00",
+                    "startDate": "20250209",
+                    "routeId": "K5000"
+                },
+                "position": {
+                    "latitude": 3.9311580657959,
+                    "longitude": 103.058853149414,
+                    "bearing": 112.199996948242,
+                    "speed": 68.3399963378906
+                },
+                "timestamp": "1739093786",
+                "vehicle": {
+                    "id": "CDH2338",
+                    "licensePlate": "CDH2338"
+                }
+            }
+        },
+        {
+            "id": "2",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_K5000_K500001_6",
+                    "startTime": "17:35:07",
+                    "startDate": "20250209",
+                    "routeId": "K5000"
+                },
+                "position": {
+                    "latitude": 3.81143999099731,
+                    "longitude": 103.328453063965,
+                    "bearing": 248.100006103516,
+                    "speed": 29.8199996948242
+                },
+                "timestamp": "1739093793",
+                "vehicle": {
+                    "id": "CDH2337",
+                    "licensePlate": "CDH2337"
+                }
+            }
+        },
+        {
+            "id": "3",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_K1000_K100001_10",
+                    "startTime": "17:32:26",
+                    "startDate": "20250209",
+                    "routeId": "K1000"
+                },
+                "position": {
+                    "latitude": 3.80824899673462,
+                    "longitude": 103.325035095215,
+                    "bearing": 221.300003051758,
+                    "speed": 38.1500015258789
+                },
+                "timestamp": "1739093793",
+                "vehicle": {
+                    "id": "CDH2344",
+                    "licensePlate": "CDH2344"
+                }
+            }
+        },
+        {
+            "id": "4",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_K3030_K303001_1",
+                    "startTime": "17:32:59",
+                    "startDate": "20250209",
+                    "routeId": "K3030"
+                },
+                "position": {
+                    "latitude": 3.81387591362,
+                    "longitude": 103.321174621582,
+                    "bearing": 236.899993896484,
+                    "speed": 5.55999994277954
+                },
+                "timestamp": "1739093799",
+                "vehicle": {
+                    "id": "CDH5971",
+                    "licensePlate": "CDH5971"
+                }
+            }
+        },
+        {
+            "id": "5",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_K1000_K100002_12",
+                    "startTime": "16:59:59",
+                    "startDate": "20250209",
+                    "routeId": "K1000"
+                },
+                "position": {
+                    "latitude": 3.76636290550232,
+                    "longitude": 103.22021484375,
+                    "bearing": 60.5999984741211,
+                    "speed": 17.3899993896484
+                },
+                "timestamp": "1739093800",
+                "vehicle": {
+                    "id": "CDD1439",
+                    "licensePlate": "CDD1439"
+                }
+            }
+        },
+        {
+            "id": "6",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_K6000_K600002_11",
+                    "startTime": "17:33:48",
+                    "startDate": "20250209",
+                    "routeId": "K6000"
+                },
+                "position": {
+                    "latitude": 3.95838308334351,
+                    "longitude": 103.371269226074,
+                    "bearing": 27.7999992370605,
+                    "speed": 20.9300003051758
+                },
+                "timestamp": "1739093782",
+                "vehicle": {
+                    "id": "CDH5966",
+                    "licensePlate": "CDH5966"
+                }
+            }
+        },
+        {
+            "id": "7",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_K2000_K200002_1",
+                    "startTime": "17:20:19",
+                    "startDate": "20250209",
+                    "routeId": "K2000"
+                },
+                "position": {
+                    "latitude": 3.8133180141449,
+                    "longitude": 103.323860168457,
+                    "bearing": 217.899993896484,
+                    "speed": 17.2199993133545
+                },
+                "timestamp": "1739093751",
+                "vehicle": {
+                    "id": "CDH7750",
+                    "licensePlate": "CDH7750"
+                }
+            }
+        },
+        {
+            "id": "8",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_K6010_K601002_3",
+                    "startTime": "17:12:36",
+                    "startDate": "20250209",
+                    "routeId": "K6010"
+                },
+                "position": {
+                    "latitude": 3.82195997238159,
+                    "longitude": 103.32511138916,
+                    "bearing": 217.800003051758,
+                    "speed": 44.0800018310547
+                },
+                "timestamp": "1739093802",
+                "vehicle": {
+                    "id": "CDH8301",
+                    "licensePlate": "CDH8301"
+                }
+            }
+        },
+        {
+            "id": "9",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_K4000_K400001_10",
+                    "startTime": "16:42:49",
+                    "startDate": "20250209",
+                    "routeId": "K4000"
+                },
+                "position": {
+                    "latitude": 3.54563403129578,
+                    "longitude": 103.38289642334,
+                    "bearing": 161.5,
+                    "speed": 55.560001373291
+                },
+                "timestamp": "1739093794",
+                "vehicle": {
+                    "id": "CDH8330",
+                    "licensePlate": "CDH8330"
+                }
+            }
+        }
+    ]
+}

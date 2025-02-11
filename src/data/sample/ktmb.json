@@ -1,0 +1,370 @@
+{
+    "header": {
+        "gtfsRealtimeVersion": "2.0",
+        "incrementality": "FULL_DATASET",
+        "timestamp": "1739093883"
+    },
+    "entity": [
+        {
+            "id": "0",
+            "vehicle": {
+                "trip": {
+                    "tripId": "2914"
+                },
+                "position": {
+                    "latitude": 4.77601289749146,
+                    "longitude": 100.823677062988,
+                    "bearing": 0,
+                    "speed": 0
+                },
+                "timestamp": "1739093869",
+                "vehicle": {
+                    "id": "2914",
+                    "label": "EMU33"
+                }
+            }
+        },
+        {
+            "id": "1",
+            "vehicle": {
+                "trip": {
+                    "tripId": "2976"
+                },
+                "position": {
+                    "latitude": 5.82236289978027,
+                    "longitude": 100.478126525879,
+                    "bearing": 0,
+                    "speed": 49
+                },
+                "timestamp": "1739093859",
+                "vehicle": {
+                    "id": "2976",
+                    "label": "EMU40"
+                }
+            }
+        },
+        {
+            "id": "2",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_2159"
+                },
+                "position": {
+                    "latitude": 3.20753693580627,
+                    "longitude": 101.632446289063,
+                    "bearing": 0,
+                    "speed": 43
+                },
+                "timestamp": "1739093859",
+                "vehicle": {
+                    "id": "weekend_2159",
+                    "label": "EMU05"
+                }
+            }
+        },
+        {
+            "id": "3",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_2334"
+                },
+                "position": {
+                    "latitude": 3.40089702606201,
+                    "longitude": 101.627899169922,
+                    "bearing": 0,
+                    "speed": 125
+                },
+                "timestamp": "1739093856",
+                "vehicle": {
+                    "id": "weekend_2334",
+                    "label": "SCS18"
+                }
+            }
+        },
+        {
+            "id": "4",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_2338"
+                },
+                "position": {
+                    "latitude": 3.60033488273621,
+                    "longitude": 101.594100952148,
+                    "bearing": 0,
+                    "speed": 98
+                },
+                "timestamp": "1739093862",
+                "vehicle": {
+                    "id": "weekend_2338",
+                    "label": "SCS02"
+                }
+            }
+        },
+        {
+            "id": "5",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_2342"
+                },
+                "position": {
+                    "latitude": 3.20565700531006,
+                    "longitude": 101.61547088623,
+                    "bearing": 0,
+                    "speed": 65
+                },
+                "timestamp": "1739093862",
+                "vehicle": {
+                    "id": "weekend_2342",
+                    "label": "SCS28"
+                }
+            }
+        },
+        {
+            "id": "6",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_2330"
+                },
+                "position": {
+                    "latitude": 3.28819704055786,
+                    "longitude": 101.570831298828,
+                    "bearing": 0,
+                    "speed": 58
+                },
+                "timestamp": "1739093862",
+                "vehicle": {
+                    "id": "weekend_2330",
+                    "label": "SCS24"
+                }
+            }
+        },
+        {
+            "id": "7",
+            "vehicle": {
+                "trip": {
+                    "tripId": "2979"
+                },
+                "position": {
+                    "latitude": 6.30593013763428,
+                    "longitude": 100.34619140625,
+                    "bearing": 0,
+                    "speed": 118
+                },
+                "timestamp": "1739093859",
+                "vehicle": {
+                    "id": "2979",
+                    "label": "EMU23"
+                }
+            }
+        },
+        {
+            "id": "8",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_2049"
+                },
+                "position": {
+                    "latitude": 2.99126291275024,
+                    "longitude": 101.785514831543,
+                    "bearing": 0,
+                    "speed": 80
+                },
+                "timestamp": "1739093869",
+                "vehicle": {
+                    "id": "weekend_2049",
+                    "label": "SCS19"
+                }
+            }
+        },
+        {
+            "id": "9",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_2126"
+                },
+                "position": {
+                    "latitude": 3.08312010765076,
+                    "longitude": 101.598251342773,
+                    "bearing": 0,
+                    "speed": 12
+                },
+                "timestamp": "1739093869",
+                "vehicle": {
+                    "id": "weekend_2126",
+                    "label": "SCS05"
+                }
+            }
+        },
+        {
+            "id": "10",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_2050"
+                },
+                "position": {
+                    "latitude": 2.74772000312805,
+                    "longitude": 101.849182128906,
+                    "bearing": 0,
+                    "speed": 33
+                },
+                "timestamp": "1739093868",
+                "vehicle": {
+                    "id": "weekend_2050",
+                    "label": "SCS22"
+                }
+            }
+        },
+        {
+            "id": "11",
+            "vehicle": {
+                "trip": {
+                    "tripId": "2975"
+                },
+                "position": {
+                    "latitude": 6.21493005752564,
+                    "longitude": 100.364776611328,
+                    "bearing": 0,
+                    "speed": 119
+                },
+                "timestamp": "1739093868",
+                "vehicle": {
+                    "id": "2975",
+                    "label": "SCS23"
+                }
+            }
+        },
+        {
+            "id": "12",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_2053"
+                },
+                "position": {
+                    "latitude": 3.11396288871765,
+                    "longitude": 101.681030273438,
+                    "bearing": 0,
+                    "speed": 0
+                },
+                "timestamp": "1739093867",
+                "vehicle": {
+                    "id": "weekend_2053",
+                    "label": "SCS03"
+                }
+            }
+        },
+        {
+            "id": "13",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_2134"
+                },
+                "position": {
+                    "latitude": 3.03398990631104,
+                    "longitude": 101.463104248047,
+                    "bearing": 0,
+                    "speed": 94
+                },
+                "timestamp": "1739093866",
+                "vehicle": {
+                    "id": "weekend_2134",
+                    "label": "SCS13"
+                }
+            }
+        },
+        {
+            "id": "15",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_2151"
+                },
+                "position": {
+                    "latitude": 3.13586711883545,
+                    "longitude": 101.689361572266,
+                    "bearing": 0,
+                    "speed": 0
+                },
+                "timestamp": "1739093873",
+                "vehicle": {
+                    "id": "weekend_2151",
+                    "label": "SCS38"
+                }
+            }
+        },
+        {
+            "id": "16",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_2045"
+                },
+                "position": {
+                    "latitude": 3.11797690391541,
+                    "longitude": 101.678993225098,
+                    "bearing": 0,
+                    "speed": 0
+                },
+                "timestamp": "1739093873",
+                "vehicle": {
+                    "id": "weekend_2045",
+                    "label": "SCS27"
+                }
+            }
+        },
+        {
+            "id": "17",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_2163"
+                },
+                "position": {
+                    "latitude": 3.23685693740845,
+                    "longitude": 101.55997467041,
+                    "bearing": 0,
+                    "speed": 108
+                },
+                "timestamp": "1739093853",
+                "vehicle": {
+                    "id": "weekend_2163",
+                    "label": "SCS08"
+                }
+            }
+        },
+        {
+            "id": "18",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_2302"
+                },
+                "position": {
+                    "latitude": 3.0130980014801,
+                    "longitude": 101.402412414551,
+                    "bearing": 0,
+                    "speed": 0
+                },
+                "timestamp": "1739093871",
+                "vehicle": {
+                    "id": "weekend_2302",
+                    "label": "SCS11"
+                }
+            }
+        },
+        {
+            "id": "19",
+            "vehicle": {
+                "trip": {
+                    "tripId": "weekend_2603"
+                },
+                "position": {
+                    "latitude": 3.18218302726746,
+                    "longitude": 101.688537597656,
+                    "bearing": 0,
+                    "speed": 18
+                },
+                "timestamp": "1739093871",
+                "vehicle": {
+                    "id": "weekend_2603",
+                    "label": "SCS26"
+                }
+            }
+        }
+    ]
+}
