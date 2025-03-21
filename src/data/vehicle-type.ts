@@ -12,7 +12,10 @@ const vehicleType = [
         "name": "Rapid Bus MRT Feeder"
     },
     {
-        "name": "MyBas Melaka"
+        "name": "MyBas Johor"
+    },
+    {
+        "name": "KTM Berhad"
     }
 ]
 

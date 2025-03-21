@@ -7,6 +7,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Batch {
+  id            String       @id @default(cuid())
+  createdAt     DateTime     @default(now())
+  vehicleTypeID String
+  vehicleType   VehicleType  @relation(fields: [vehicleTypeID], references: [id])
+  TripUpdate    TripUpdate[]
+}
+
 model TripUpdate {
   id         String   @id @default(cuid())
   timestamp  String
@@ -16,6 +24,8 @@ model TripUpdate {
   position   Position @relation(fields: [positionID], references: [id])
   vehicleID  String
   vehicle    Vehicle  @relation(fields: [vehicleID], references: [id])
+  batchID    String?
+  batch      Batch?   @relation(fields: [batchID], references: [id])
   createdAt  DateTime @default(now())
 }
 
@@ -39,25 +49,17 @@ model Position {
 }
 
 model Vehicle {
-  id              String        @id @default(cuid())
-  refID           String        @unique // The original ID from FeedEntity.entity[x].vehicle.vehicle.id
-  vehicleDetail   VehicleDetail @relation(fields: [vehicleDetailID], references: [id]) // Make this REQUIRED
-  vehicleDetailID String
-  TripUpdate      TripUpdate[]
+  id            String       @id @default(cuid())
+  label         String       @unique // The label of the vehicle (if available)
+  vehicleTypeID String
+  vehicleType   VehicleType  @relation(fields: [vehicleTypeID], references: [id])
+  TripUpdate    TripUpdate[]
+  createdAt     DateTime     @default(now())
 }
 
 model VehicleType {
-  id            String          @id @default(cuid())
-  name          String          @unique
-  VehicleDetail VehicleDetail[]
-}
-
-model VehicleDetail {
-  id            String       @id @default(cuid())
-  label         String?      @unique // The label of the vehicle (if available)
-  licensePlate  String?      @unique // Added from the new data (e.g., "MUY9570")
-  vehicleTypeID String?
-  vehicleType   VehicleType? @relation(fields: [vehicleTypeID], references: [id])
-  Vehicle       Vehicle[]
-  createdAt     DateTime     @default(now())
+  id      String    @id @default(cuid())
+  name    String    @unique
+  Vehicle Vehicle[]
+  Batch   Batch[]
 }

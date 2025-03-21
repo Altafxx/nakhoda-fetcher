@@ -8,11 +8,11 @@ async function main() {
 
     const vehicleType = await vehicleTypeSeeder()
 
-    const vehicleDetail = await vehicleDetailSeeder()
+    // const vehicleDetail = await vehicleDetailSeeder()
 
 
 
-    console.log({ vehicleType, vehicleDetail })
+    console.log({ vehicleType })
 }
 
 main()

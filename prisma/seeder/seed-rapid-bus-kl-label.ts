@@ -6,9 +6,9 @@ export default async function vehicleSeeder() {
     const data = await Promise.all(
         rapidBusKLPlate.map(
             async (plate: string) => (
-                await db.vehicleDetail.create({
+                await db.vehicle.create({
                     data: {
-                        licensePlate: plate,
+                        label: plate,
                         vehicleType: { connect: { name: "Rapid Bus KL" } }
                     }
                 })
