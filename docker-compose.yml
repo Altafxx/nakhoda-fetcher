@@ -1,13 +1,7 @@
 services:
   hono-app:
     build: .
-    # ports:
-    #   - "3000:3000"
     command: ["sh", "-c", "crond && npm run start"]
-
-  # proxy:
-  #   image: nginx:latest
-  #   ports:
-  #     - "80:80"
-  #   volumes:
-  #     - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    env_file:
+      - .env
+    network_mode: "host" 
