@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -- -p 3001",
+    "start": "next start -p 3001",
     "lint": "next lint",
     "seed": "npx tsx prisma/seed.ts ",
     "seed:reset": "npx prisma migrate reset -f && npx tsx prisma/seed.ts ",
