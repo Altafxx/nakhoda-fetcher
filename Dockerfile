@@ -7,7 +7,8 @@ RUN npm install
 
 COPY . .
 
-RUN apk add --no-cache curl busybox-suid
+# Explicitly install busybox-suid and dcron for ARM64 compatibility
+RUN apk add --no-cache curl busybox-suid dcron
 
 # Add this line to regenerate Prisma Client
 RUN npx prisma generate
@@ -31,14 +32,12 @@ RUN echo "* * * * * sleep 50; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -
 # Ensure crontabs directory has correct permissions
 RUN chmod 600 /etc/crontabs/root
 
-# For 30 seconds interval
-# RUN echo "* * * * * ( sleep 30; /usr/bin/curl http://localhost:3000/api/rapid-bus-kl )" >> /etc/crontabs/root
-# RUN echo "* * * * * ( sleep 30; /usr/bin/curl http://localhost:3000/api/rapid-bus-penang )" >> /etc/crontabs/root
-# RUN echo "* * * * * ( sleep 30; /usr/bin/curl http://localhost:3000/api/ktmb )" >> /etc/crontabs/root
-# RUN echo "* * * * * ( sleep 30; /usr/bin/curl http://localhost:3000/api/mybas-johor )" >> /etc/crontabs/root
-# RUN echo "* * * * * ( sleep 30; /usr/bin/curl http://localhost:3000/api/rapid-bus-mrtfeeder )" >> /etc/crontabs/root
-# RUN echo "* * * * * ( sleep 30; /usr/bin/curl http://localhost:3000/api/rapid-bus-kuantan )" >> /etc/crontabs/root
+# Create cron directory
+RUN mkdir -p /var/spool/cron/crontabs && \
+    chown -R root:root /var/spool/cron/crontabs && \
+    chmod 1730 /var/spool/cron/crontabs
 
 USER node
 
-CMD ["sh", "-c", "crond -f -l 8 && npm run start"]
+# Modified CMD to ensure crond starts properly
+CMD ["sh", "-c", "sudo crond -f -l 8 && npm run start"]

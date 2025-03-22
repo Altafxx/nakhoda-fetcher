@@ -1,7 +1,7 @@
 services:
   hono-app:
     build: .
-    command: ["sh", "-c", "crond && npm run start"]
+    command: ["sh", "-c", "sudo crond && npm run start"]
     env_file:
       - .env
     ports:
@@ -12,6 +12,7 @@ services:
       - ./logs:/app/logs
     networks:
       - nakhoda-network
+    privileged: true  # Add this line for ARM64 compatibility
 
 networks:
   nakhoda-network:
