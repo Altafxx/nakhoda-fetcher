@@ -9,7 +9,11 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      - ./logs:/app/logs:rw
+      - type: bind
+        source: ./logs
+        target: /app/logs
+        bind:
+          create_host_path: true
     networks:
       - nakhoda-network
 
