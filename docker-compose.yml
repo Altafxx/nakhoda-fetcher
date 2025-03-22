@@ -4,8 +4,17 @@ services:
     command: ["sh", "-c", "crond && npm run start"]
     env_file:
       - .env
-    network_mode: "host"
+    ports:
+      - "5000:5000"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
       - ./logs:/app/logs
+    networks:
+      - nakhoda-network
+    depends_on:
+      - postgis
+
+networks:
+  nakhoda-network:
+    external: true    # This allows connecting to existing network
