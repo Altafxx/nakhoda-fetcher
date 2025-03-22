@@ -27,11 +27,18 @@ RUN touch /app/logs/cron.log && chown node:node /app/logs/cron.log && chmod 644 
 
 # Add cron jobs with logging and staggered timing
 RUN echo "* * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-kl >> /app/logs/cron.log 2>&1" >> /etc/crontabs/root
-RUN echo "* * * * * sleep 10; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-penang >> /app/logs/cron.log 2>&1" >> /etc/crontabs/root
-RUN echo "* * * * * sleep 20; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-kuantan >> /app/logs/cron.log 2>&1" >> /etc/crontabs/root
+RUN echo "* * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-penang >> /app/logs/cron.log 2>&1" >> /etc/crontabs/root
+RUN echo "* * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-kuantan >> /app/logs/cron.log 2>&1" >> /etc/crontabs/root
+RUN echo "* * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-mrtfeeder >> /app/logs/cron.log 2>&1" >> /etc/crontabs/root
+RUN echo "* * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/mybas-johor >> /app/logs/cron.log 2>&1" >> /etc/crontabs/root
+RUN echo "* * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/ktmb >> /app/logs/cron.log 2>&1" >> /etc/crontabs/root
+
+RUN echo "* * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-kl >> /app/logs/cron.log 2>&1" >> /etc/crontabs/root
+RUN echo "* * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-penang >> /app/logs/cron.log 2>&1" >> /etc/crontabs/root
+RUN echo "* * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-kuantan >> /app/logs/cron.log 2>&1" >> /etc/crontabs/root
 RUN echo "* * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-mrtfeeder >> /app/logs/cron.log 2>&1" >> /etc/crontabs/root
-RUN echo "* * * * * sleep 40; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/mybas-johor >> /app/logs/cron.log 2>&1" >> /etc/crontabs/root
-RUN echo "* * * * * sleep 50; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/ktmb >> /app/logs/cron.log 2>&1" >> /etc/crontabs/root
+RUN echo "* * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/mybas-johor >> /app/logs/cron.log 2>&1" >> /etc/crontabs/root
+RUN echo "* * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/ktmb >> /app/logs/cron.log 2>&1" >> /etc/crontabs/root
 
 # Ensure crontabs directory has correct permissions
 RUN chmod 600 /etc/crontabs/root
