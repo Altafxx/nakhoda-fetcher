@@ -7,8 +7,12 @@ RUN npm install
 
 COPY . .
 
-# Explicitly install busybox-suid and dcron for ARM64 compatibility
-RUN apk add --no-cache curl busybox-suid dcron
+# Install required packages including sudo
+RUN apk add --no-cache curl busybox-suid dcron sudo
+
+# Configure sudo for node user
+RUN echo "node ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/node && \
+    chmod 0440 /etc/sudoers.d/node
 
 # Add this line to regenerate Prisma Client
 RUN npx prisma generate
