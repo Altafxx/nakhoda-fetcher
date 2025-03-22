@@ -50,5 +50,8 @@ RUN mkdir -p /var/spool/cron/crontabs && \
 
 USER node
 
+# Add sudo to PATH for node user
+ENV PATH="/usr/bin:${PATH}"
+
 # Modified CMD to ensure crond starts properly
 CMD ["sh", "-c", "sudo crond -f -l 8 && npm run start"]
