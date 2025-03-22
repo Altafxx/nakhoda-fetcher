@@ -3,7 +3,7 @@ import fetchAPI from "@/lib/data-gov-my-fetcher"
 import { db } from "@/lib/db-client";
 import { Entity } from "@/types/feed-entity.types";
 import { TripUpdate } from "@prisma/client";
-import { writeFile } from "fs/promises";
+// import { writeFile } from "fs/promises";
 import { Context } from "hono"
 
 const proxy = async (c: Context) => {
@@ -107,8 +107,8 @@ const handleVehicleService = async (
     try {
         const data: Entity[] = await fetchAPI(apiIndex, endpoint);
 
-        const filename = new Date().toLocaleString().replace(/\/|,|:| /g, '-') + '.json';
-        await writeFile(`logs/${vehicleTypeName.toLowerCase().replace(/\s+/g, '-')}/${filename}`, JSON.stringify(data, null, 2));
+        // const filename = new Date().toLocaleString().replace(/\/|,|:| /g, '-') + '.json';
+        // await writeFile(`logs/${vehicleTypeName.toLowerCase().replace(/\s+/g, '-')}/${filename}`, JSON.stringify(data, null, 2));
 
         const tripUpdates = await Promise.all(
             data.map((d, i) => processVehicleData(d, vehicleTypeName, i, getVehicleLabel))
