@@ -9,6 +9,9 @@ COPY . .
 
 RUN apk add --no-cache curl busybox-suid
 
+# Add this line to regenerate Prisma Client
+RUN npx prisma generate
+
 RUN npm run build
 
 # Create logs directory
