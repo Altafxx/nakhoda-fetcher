@@ -6,6 +6,9 @@
 0	3	*	*	6	run-parts /etc/periodic/weekly
 0	5	1	*	*	run-parts /etc/periodic/monthly
 
+# Refresh proxies every 40 minutes
+*/40 * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/refresh-proxies >> /app/logs/cron.log 2>&1
+
 # Add separator every 30 seconds
 * * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/separator >> /app/logs/cron.log 2>&1
 * * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/separator >> /app/logs/cron.log 2>&1
