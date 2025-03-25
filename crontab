@@ -1,0 +1,21 @@
+# Test entry - runs every minute
+* * * * * echo "Cron is working $(date)" >> /app/logs/cron.log 2>&1
+
+# Existing cron jobs
+* * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-kl >> /app/logs/cron.log 2>&1
+* * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-penang >> /app/logs/cron.log 2>&1
+* * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-kuantan >> /app/logs/cron.log 2>&1
+* * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-mrtfeeder >> /app/logs/cron.log 2>&1
+* * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/mybas-johor >> /app/logs/cron.log 2>&1
+* * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/ktmb >> /app/logs/cron.log 2>&1
+
+# Sleep jobs
+* * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-kl >> /app/logs/cron.log 2>&1
+* * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-penang >> /app/logs/cron.log 2>&1
+* * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-kuantan >> /app/logs/cron.log 2>&1
+* * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-mrtfeeder >> /app/logs/cron.log 2>&1
+* * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/mybas-johor >> /app/logs/cron.log 2>&1
+* * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/ktmb >> /app/logs/cron.log 2>&1
+
+# Proxy refresh job
+*/5 * * * * /usr/bin/curl -s http://localhost:5000/api/refresh-proxies >> /app/logs/cron.log 2>&1
