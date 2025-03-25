@@ -19,32 +19,56 @@ RUN npx prisma generate
 
 RUN npm run build
 
-# Create logs directory and set permissions
-RUN mkdir -p /app/logs && \
-    touch /app/logs/cron.log && \
-    chown -R node:node /app/logs && \
-    chmod -R 777 /app/logs && \
-    chmod 666 /app/logs/cron.log
+# Create logs directory
+RUN mkdir -p /app/logs && chown node:node /app/logs && chmod 755 /app/logs
 
-# Set up cron
+# Create log file and set permissions before adding cron jobs
+RUN touch /app/logs/cron.log && chown node:node /app/logs/cron.log && chmod 644 /app/logs/cron.log
+
 COPY crontab /etc/crontabs/root
-RUN chmod 600 /etc/crontabs/root && \
-    chown root:root /etc/crontabs/root && \
-    mkdir -p /var/spool/cron/crontabs && \
-    chmod 1730 /var/spool/cron/crontabs && \
-    touch /var/log/cron.log && \
-    chmod 666 /var/log/cron.log
 
-# Set permissions for proxies.json
+# Ensure crontabs directory has correct permissions
+RUN chmod 600 /etc/crontabs/root
+
+# Create cron directory
+RUN mkdir -p /var/spool/cron/crontabs && \
+    chown -R root:root /var/spool/cron/crontabs && \
+    chmod 1730 /var/spool/cron/crontabs
+
 RUN mkdir -p /app/src/config && \
     touch /app/src/config/proxies.json && \
     chown node:node /app/src/config/proxies.json && \
     chmod 666 /app/src/config/proxies.json
+
+# Create a startup script and set permissions before changing user
+COPY <<'EOF' /app/startup.sh
+#!/bin/sh
+echo "Starting crond..."
+sudo crond -f -l 8 &
+
+echo "Starting Node.js application..."
+npm run start &
+
+echo "Waiting for server to be ready..."
+until curl -s http://localhost:5000/api/proxy > /dev/null 2>&1; do
+    echo "Server is not ready yet... retrying in 2 seconds"
+    sleep 2
+done
+
+echo "Server is ready! Refreshing proxies..."
+curl -s http://localhost:5000/api/refresh-proxies
+echo "Proxy refresh completed"
+
+# Keep the container running
+wait
+EOF
+
+RUN chmod +x /app/startup.sh && \
+    chown node:node /app/startup.sh
 
 USER node
 
 # Add sudo to PATH for node user
 ENV PATH="/usr/bin:${PATH}"
 
-# Start cron and application
-CMD ["sh", "-c", "sudo touch /app/logs/cron.log && sudo chmod 666 /app/logs/cron.log && sudo crond -f -l 8 & npm run start"]
+CMD ["/app/startup.sh"]

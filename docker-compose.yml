@@ -1,7 +1,7 @@
 services:
   hono-app:
     build: .
-    command: ["sh", "-c", "sudo mkdir -p /app/logs && sudo touch /app/logs/cron.log && sudo chmod 666 /app/logs/cron.log && sudo crond -f -l 8 & npm run start"]
+    command: ["/app/startup.sh"]
     env_file:
       - .env
     ports:
@@ -10,7 +10,7 @@ services:
       - "host.docker.internal:host-gateway"
     volumes:
       - ./logs:/app/logs
-      - ./crontab:/etc/crontabs/root
+      # - ./crontab:/etc/crontabs/root
     networks:
       - nakhoda-network
     privileged: true  # Add this line for ARM64 compatibility
