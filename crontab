@@ -6,12 +6,19 @@
 0	3	*	*	6	run-parts /etc/periodic/weekly
 0	5	1	*	*	run-parts /etc/periodic/monthly
 
+# Add separator every 30 seconds
+* * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/separator >> /app/logs/cron.log 2>&1
+* * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/separator >> /app/logs/cron.log 2>&1
+
+# API calls
 * * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-kl >> /app/logs/cron.log 2>&1
 * * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-penang >> /app/logs/cron.log 2>&1
 * * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-kuantan >> /app/logs/cron.log 2>&1
 * * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-mrtfeeder >> /app/logs/cron.log 2>&1
 * * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/mybas-johor >> /app/logs/cron.log 2>&1
 * * * * * date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/ktmb >> /app/logs/cron.log 2>&1
+
+# Second batch with 30-second delay
 * * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-kl >> /app/logs/cron.log 2>&1
 * * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-penang >> /app/logs/cron.log 2>&1
 * * * * * sleep 30; date >> /app/logs/cron.log 2>&1 && /usr/bin/curl -s http://localhost:5000/api/rapid-bus-kuantan >> /app/logs/cron.log 2>&1

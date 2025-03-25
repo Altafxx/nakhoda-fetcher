@@ -6,6 +6,7 @@ import { TripUpdate } from "@prisma/client";
 // import { writeFile } from "fs/promises";
 import { Context } from "hono";
 import axios from 'axios';
+import { checkAllProxies, refreshProxies } from "@/lib/proxy-manager";
 
 const PROXY_INDICES = {
     RAPID_BUS_KL: 0,
@@ -18,6 +19,28 @@ const PROXY_INDICES = {
 
 const DISCORD_LOGS_BOT = process.env.DISCORD_LOGS_BOT;
 const DISCORD_ERROR_BOT = process.env.DISCORD_ERROR_BOT;
+
+const formatLogMessage = (vehicleTypeName: string, result: { successful: number, processed: number, batch: { id: string } }) => {
+    return `✅ ${vehicleTypeName}: ${result.successful}/${result.processed} updates (ID: ${result.batch.id})`;
+};
+
+const seperator = async (c: Context) => {
+    try {
+        await axios.post(process.env.DISCORD_LOGS_BOT!, {
+            content: '\n───────────────────\n'
+        });
+
+        return c.json({
+            status: 'success',
+            message: 'Separator added'
+        });
+    } catch (error) {
+        return c.json({
+            status: 'error',
+            message: error instanceof Error ? error.message : 'Failed to add separator'
+        }, 500);
+    }
+}
 
 const sendDiscordNotification = async (webhook: string, content: string) => {
     try {
@@ -43,6 +66,27 @@ const proxy = async (c: Context) => {
         return c.json(data);
     } catch (error) {
         throw c.text('Error', 500);
+    }
+}
+
+const refreshProxy = async (c: Context) => {
+    try {
+        // Force refresh proxies first
+        await refreshProxies();
+
+        // Then check their status
+        const proxyStatus = await checkAllProxies();
+
+        return c.json({
+            status: 'success',
+            message: 'Proxies refreshed',
+            proxyStatus
+        });
+    } catch (error) {
+        return c.json({
+            status: 'error',
+            message: error instanceof Error ? error.message : 'Failed to refresh proxies'
+        }, 500);
     }
 }
 
@@ -133,7 +177,7 @@ const handleVehicleService = async (
 
         await sendDiscordNotification(
             DISCORD_LOGS_BOT!,
-            `✅ ${vehicleTypeName}: Successfully processed ${result.successful}/${result.processed} updates (Batch ID: ${result.batch.id})`
+            formatLogMessage(vehicleTypeName, result)
         );
 
         return c.json({
@@ -196,5 +240,7 @@ export {
     myBasJohor,
     ktmb,
     rapidBusMRTFeeder,
-    rapidRailKL
+    rapidRailKL,
+    seperator,
+    refreshProxy
 };
