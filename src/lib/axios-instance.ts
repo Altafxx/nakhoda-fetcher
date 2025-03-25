@@ -1,24 +1,27 @@
 import axios from "axios";
+import { getProxies } from "./proxy-manager";
 
-const HOST = process.env.PROXY_HOST?.split(',')
-const PORT = process.env.PROXY_PORT?.split(',')
-const USERNAME = process.env.PROXY_USERNAME
-const PASSWORD = process.env.PROXY_PASSWORD
+const instance = async (n: number) => {
+    const { proxies } = await getProxies();
 
-if (!HOST || !PORT || !USERNAME || !PASSWORD) {
-    throw new Error('Proxy credentials not found')
-}
+    if (!proxies.length) {
+        throw new Error('No proxies available');
+    }
 
-const instance = (n: number) => axios.create({
-    proxy: {
-        host: HOST[n],
-        port: parseInt(PORT[n]),
-        protocol: 'http',
-        auth: {
-            username: USERNAME,
-            password: PASSWORD,
-        }
-    },
-});
+    // Use modulo to cycle through available proxies
+    const proxy = proxies[n % proxies.length];
+
+    return axios.create({
+        proxy: {
+            host: proxy.host,
+            port: proxy.port,
+            protocol: 'http',
+            auth: {
+                username: process.env.PROXY_USERNAME || '',
+                password: process.env.PROXY_PASSWORD || ''
+            }
+        },
+    });
+};
 
 export default instance;

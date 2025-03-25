@@ -3,7 +3,8 @@ import GTFSRealtimeBindings from 'gtfs-realtime-bindings'
 import { Entity } from "@/types/feed-entity.types";
 
 const fetchAPI = async (n: number, url: string) => {
-    return await instance(n)
+    const axiosInstance = await instance(n);
+    return axiosInstance
         .get('https://api.data.gov.my/gtfs-realtime/vehicle-position' + url, {
             responseType: "arraybuffer"
         })

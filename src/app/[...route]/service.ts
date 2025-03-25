@@ -4,14 +4,36 @@ import { db } from "@/lib/db-client";
 import { Entity } from "@/types/feed-entity.types";
 import { TripUpdate } from "@prisma/client";
 // import { writeFile } from "fs/promises";
-import { Context } from "hono"
+import { Context } from "hono";
+import axios from 'axios';
+
+const PROXY_INDICES = {
+    RAPID_BUS_KL: 0,
+    RAPID_BUS_KUANTAN: 1,
+    RAPID_BUS_PENANG: 2,
+    MYBAS_JOHOR: 3,
+    KTMB: 4,
+    RAPID_BUS_MRTFEEDER: 5
+} as const;
+
+const DISCORD_LOGS_BOT = process.env.DISCORD_LOGS_BOT;
+const DISCORD_ERROR_BOT = process.env.DISCORD_ERROR_BOT;
+
+const sendDiscordNotification = async (webhook: string, content: string) => {
+    try {
+        await axios.post(webhook, { content });
+    } catch (error) {
+        console.error('Failed to send Discord notification:', error);
+    }
+};
 
 const proxy = async (c: Context) => {
     try {
         const data = await Promise.all(
             Array.from({ length: 6 }).map(async (_, i) => {
                 try {
-                    const res = await instance(i).get('https://ifconfig.me/ip');
+                    const axiosInstance = await instance(i);
+                    const res = await axiosInstance.get('https://ifconfig.me/ip');
                     return { id: i, ip: res.data };
                 } catch (error) {
                     return { id: i, message: "Unknown error" };
@@ -48,8 +70,6 @@ const processVehicleData = async (
     i: number,
     getVehicleLabel: (d: Entity) => string
 ) => {
-    console.log(`Processing vehicle ${data.vehicle.vehicle.id} at index ${i}`);
-
     try {
         const trip = await db.trip.create({
             data: {
@@ -92,7 +112,6 @@ const processVehicleData = async (
             }
         });
     } catch (err) {
-        console.error(`Error processing vehicle ${data.vehicle.vehicle.id}:`, err);
         return null;
     }
 };
@@ -106,15 +125,16 @@ const handleVehicleService = async (
 ) => {
     try {
         const data: Entity[] = await fetchAPI(apiIndex, endpoint);
-
-        // const filename = new Date().toLocaleString().replace(/\/|,|:| /g, '-') + '.json';
-        // await writeFile(`logs/${vehicleTypeName.toLowerCase().replace(/\s+/g, '-')}/${filename}`, JSON.stringify(data, null, 2));
-
         const tripUpdates = await Promise.all(
             data.map((d, i) => processVehicleData(d, vehicleTypeName, i, getVehicleLabel))
         );
 
         const result = await createBatchWithUpdates(tripUpdates, vehicleTypeName);
+
+        await sendDiscordNotification(
+            DISCORD_LOGS_BOT!,
+            `✅ ${vehicleTypeName}: Successfully processed ${result.successful}/${result.processed} updates (Batch ID: ${result.batch.id})`
+        );
 
         return c.json({
             status: 'success',
@@ -122,7 +142,11 @@ const handleVehicleService = async (
             ...result
         });
     } catch (error) {
-        console.error(`${vehicleTypeName} API Error:`, error);
+        await sendDiscordNotification(
+            DISCORD_ERROR_BOT!,
+            `❌ ${vehicleTypeName}: Failed to process data\nError: ${error instanceof Error ? error.message : 'Unknown error'}`
+        );
+
         return c.json({
             status: 'error',
             message: `Failed to process ${vehicleTypeName} data`,
@@ -132,27 +156,27 @@ const handleVehicleService = async (
 };
 
 const rapidBusKL = (c: Context) =>
-    handleVehicleService(c, 0, "/prasarana?category=rapid-bus-kl", "Rapid Bus KL",
+    handleVehicleService(c, PROXY_INDICES.RAPID_BUS_KL, "/prasarana?category=rapid-bus-kl", "Rapid Bus KL",
         d => d.vehicle.vehicle.licensePlate ?? d.vehicle.vehicle.id);
 
 const rapidBusKuantan = (c: Context) =>
-    handleVehicleService(c, 1, "/prasarana?category=rapid-bus-kuantan", "Rapid Bus Kuantan",
+    handleVehicleService(c, PROXY_INDICES.RAPID_BUS_KUANTAN, "/prasarana?category=rapid-bus-kuantan", "Rapid Bus Kuantan",
         d => d.vehicle.vehicle.licensePlate ?? d.vehicle.vehicle.id);
 
 const rapidBusPenang = (c: Context) =>
-    handleVehicleService(c, 2, "/prasarana?category=rapid-bus-penang", "Rapid Bus Penang",
+    handleVehicleService(c, PROXY_INDICES.RAPID_BUS_PENANG, "/prasarana?category=rapid-bus-penang", "Rapid Bus Penang",
         d => d.vehicle.vehicle.licensePlate ?? d.vehicle.vehicle.id);
 
 const myBasJohor = (c: Context) =>
-    handleVehicleService(c, 3, "/mybas-johor", "MyBas Johor",
+    handleVehicleService(c, PROXY_INDICES.MYBAS_JOHOR, "/mybas-johor", "MyBas Johor",
         d => d.vehicle.vehicle.id);
 
 const ktmb = (c: Context) =>
-    handleVehicleService(c, 4, "/ktmb", "KTM Berhad",
+    handleVehicleService(c, PROXY_INDICES.KTMB, "/ktmb", "KTM Berhad",
         d => d.vehicle.vehicle.label ?? d.vehicle.vehicle.id);
 
 const rapidBusMRTFeeder = (c: Context) =>
-    handleVehicleService(c, 5, "/prasarana?category=rapid-bus-mrtfeeder", "Rapid Bus MRT Feeder",
+    handleVehicleService(c, PROXY_INDICES.RAPID_BUS_MRTFEEDER, "/prasarana?category=rapid-bus-mrtfeeder", "Rapid Bus MRT Feeder",
         d => d.vehicle.vehicle.licensePlate ?? d.vehicle.vehicle.id);
 
 const rapidRailKL = async (c: Context) => {
